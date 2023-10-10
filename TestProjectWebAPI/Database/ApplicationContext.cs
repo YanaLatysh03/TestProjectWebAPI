@@ -24,7 +24,7 @@ namespace DocumentService.Database
             modelBuilder.Entity<RoleEntity>().HasData(GetRoleEntitiesFromEnum());
         }
 
-        public static List<RoleEntity> GetRoleEntitiesFromEnum()
+        private List<RoleEntity> GetRoleEntitiesFromEnum()
         {
             return Enum.GetValues(typeof(RoleNames))
                 .Cast<RoleNames>()

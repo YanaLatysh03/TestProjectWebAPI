@@ -6,7 +6,7 @@ namespace DocumentService.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<RegisterUserDto> RegistrateUser(string name, string email, string password, int age);
+        Task<RegisterUserDto> RegisterUser(string name, string email, string password, int age);
 
         Task<AccessTokenResponse> LoginUser(string email, string password);
 

@@ -19,6 +19,15 @@ namespace DocumentService.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Method for getting all users.
+        /// </summary>
+        /// <param name="limit">The number of users to retrieve.</param>
+        /// <param name="offset">The offset from which to start the user retrieval.</param>
+        /// <param name="orderBy">The field by which users will be sorted.</param>
+        /// <param name="sort">The sorting direction ("asc" for ascending and "desc" for descending).</param>
+        /// <param name="filter">The filter for selecting users.</param>
+        /// <returns>A list of users based on the specified parameters.</returns>
         [HttpGet]
         [Authorize]
         [Route("get-all-users")]
@@ -46,6 +55,11 @@ namespace DocumentService.Controllers
             }
         }
 
+        /// <summary>
+        /// Get a user by unique identifier.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user to retrieve.</param>
+        /// <returns>The user's information.</returns>
         [HttpGet]
         [Authorize]
         [Route("user-by-id")]
@@ -59,6 +73,11 @@ namespace DocumentService.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Register a new user.
+        /// </summary>
+        /// <param name="registerModel">The registration model containing user information.</param>
+        /// <returns>An HTTP response indicating the success or failure of the registration and info about user.</returns>
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModelRequest registerModel)
@@ -67,7 +86,7 @@ namespace DocumentService.Controllers
             {
                 _logger.LogInformation("Request model = {@RegisterModel}", registerModel);
 
-                var result = await _userService.RegistrateUser(registerModel.Name,
+                var result = await _userService.RegisterUser(registerModel.Name,
                         registerModel.Email,
                         registerModel.Password,
                         registerModel.Age);
@@ -83,6 +102,11 @@ namespace DocumentService.Controllers
             }
         }
 
+        /// <summary>
+        /// Log in a user with the provided login credentials.
+        /// </summary>
+        /// <param name="loginModel">The login model containing user login credentials.</param>
+        /// <returns>An HTTP response containing the result of the login operation and info about user.</returns>
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModelRequest loginModel)
@@ -108,6 +132,10 @@ namespace DocumentService.Controllers
             }
         }
 
+        /// <summary>
+        /// Log the user out by deleting the access token cookie.
+        /// </summary>
+        /// <returns>An HTTP response indicating the success of the logout operation.</returns>
         [HttpPost]
         [Authorize]
         [Route("logout")]
@@ -117,6 +145,11 @@ namespace DocumentService.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Add a new role to a user.
+        /// </summary>
+        /// <param name="newRole">The request model containing the user's ID and the new role name.</param>
+        /// <returns>An HTTP response indicating the result of adding the new role to the user and info about user.</returns>
         [HttpPost]
         [Authorize]
         [Route("add-new-role")]
@@ -131,6 +164,12 @@ namespace DocumentService.Controllers
             return Ok(result);
         }
 
+        /// <summary>
+        /// Update user data for a specific user.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user to update.</param>
+        /// <param name="userData">The request model containing updated user data.</param>
+        /// <returns>An HTTP response indicating the result of updating the user's data and updated info about user.</returns>
         [HttpPatch]
         [Authorize]
         [Route("update-data")]
@@ -152,6 +191,11 @@ namespace DocumentService.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a user by unique identifier.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the user to delete.</param>
+        /// <returns>An HTTP response indicating the result of deleting the user and info about user.</returns>
         [HttpDelete]
         [Authorize]
         [Route("delete-user")]

@@ -1,5 +1,4 @@
 using DocumentService.Database;
-using DocumentService.Entities;
 using DocumentService.Exceptions;
 using DocumentService.Models.Request;
 using DocumentService.Services;
@@ -9,13 +8,11 @@ using DocumentService.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System;
+using System.Reflection;
 using System.Text;
 using WebAPI.Validators;
 
@@ -84,6 +81,8 @@ builder.Host.UseSerilog((context, configuration)
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "DocumentService", Version = "v1" });
+    c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory,
+        $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
 });
 
 builder.Services.AddDbContext<ApplicationContext>(

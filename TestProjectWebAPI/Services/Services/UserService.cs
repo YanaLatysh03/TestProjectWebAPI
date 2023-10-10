@@ -25,7 +25,7 @@ namespace DocumentService.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<RegisterUserDto> RegistrateUser(string name, string email, string password, int age)
+        public async Task<RegisterUserDto> RegisterUser(string name, string email, string password, int age)
         {
             if (string.IsNullOrEmpty(name)
                 || string.IsNullOrEmpty(email)
